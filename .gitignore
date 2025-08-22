@@ -1,0 +1,13 @@
+# AWS Credentials
+*.pem
+
+# Shadowsocks configuration files with passwords
+shadowsocks-config.json
+
+#other sensitive files
+cheatsheet.md
+
+# BRD
+EC2 Shadowsocks Manager - Business Requirements Document.pdf
+ec2_shadowsocks_brd.md
+
