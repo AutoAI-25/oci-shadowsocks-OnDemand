@@ -1,0 +1,40 @@
+# OCI Shadowsocks Manager Configuration File
+#
+# This file contains all the necessary settings for the OCI Shadowsocks Manager.
+# Please fill in your OCI credentials and desired configuration.
+
+# --- OCI Configuration ---
+oci:
+  user: ocid1.user.oc1..aaaaaa...            # Your OCI User OCID
+  fingerprint: 12:34:56:78:90:ab:cd:ef...    # Your API key fingerprint
+  key_file: /Users/your-username/.oci/oci_api_key.pem  # Path to your private key file
+  tenancy: ocid1.tenancy.oc1..aaaaaa...      # Your OCI Tenancy OCID
+  region: us-ashburn-1                       # Your OCI Region
+  compartment_id: ocid1.compartment.oc1..aaaaaa... # Your Compartment OCID
+
+# --- Compute Instance Configuration ---
+compute:
+  instance_shape: VM.Standard.E2.1.Micro     # VM shape: VM.Standard.E2.1.Micro or VM.Standard.A1.Flex
+  image_id: ocid1.image.oc1.iad.aaaaaa...    # OCI image OCID (e.g., for Oracle Linux)
+  subnet_id: ocid1.subnet.oc1.iad.aaaaaa...  # Subnet OCID where the instance will be launched
+  auto_shutdown_minutes: 30                  # Automatic shutdown after this period of inactivity (minutes)
+  availability_domain: IxGV:US-ASHBURN-AD-1  # Availability Domain for the instance
+
+# --- Shadowsocks Configuration ---
+shadowsocks:
+  server_port: 443                           # The port for the Shadowsocks server
+  password: your-secure-password             # A strong password for the Shadowsocks tunnel
+  method: aes-256-gcm                        # Encryption method
+  local_port: 1080                           # Local port for the Shadowsocks client
+
+# --- Monitoring & Reporting ---
+monitoring:
+  resource_alert_threshold: 80               # Percentage of resource limits to trigger an alert
+  connection_timeout: 30                     # Timeout for connection tests (seconds)
+
+# --- Selective Routing Configuration ---
+# This section defines how to handle traffic.
+routing:
+  mode: "selective"                          # Options: "selective", "global", "disabled"
+  rules_file: "routing_rules.yaml"           # Path to the file with detailed routing rules
+  pac_file_path: "proxy.pac"                 # Path to save the generated PAC file

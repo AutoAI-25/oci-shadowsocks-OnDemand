@@ -7,7 +7,15 @@ shadowsocks-config.json
 #other sensitive files
 cheatsheet.md
 
-# BRD
-EC2 Shadowsocks Manager - Business Requirements Document.pdf
-ec2_shadowsocks_brd.md
+# BRD and desgin doc
+Documentations/
 
+
+src/__pycache__/__init__.cpython-313.pyc
+src/__pycache__/local_client_manager.cpython-313.pyc
+tests/.DS_Store
+.vscode/settings.json
+tests/__pycache__/test_local_client_manager.cpython-313-pytest-8.4.1.pyc
+ss-local-temp.json
+test/__pycache__/test_local_client_manager.cpython-313-pytest-8.4.1.pyc
+test/Test the Local Client Manager Module.md

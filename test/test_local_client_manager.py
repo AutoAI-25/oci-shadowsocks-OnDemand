@@ -78,7 +78,7 @@ default_action: "DIRECT"
 """)
 def test_generate_pac_file_success(mock_open, mock_exists, local_client_manager):
     """TC-LCM-003: Validates correct PAC file generation."""
-    rules_file = "routing_rules.yaml"
+    rules_file = "config/routing_rules.yaml"
     output_file = "proxy.pac"
     
     success = local_client_manager.generate_pac_file(rules_file, output_file)

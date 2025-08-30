@@ -1,38 +1,58 @@
-# Oracle Cloud Shadowsocks Server ☁️
+# OCI Shadowsocks Manager
 
-A project to build an automated, on-demand Shadowsocks server using Oracle Cloud Infrastructure's Always Free tier.
+The OCI Shadowsocks Manager is a Python-based automation tool designed to create and manage secure Shadowsocks proxy tunnels using Oracle Cloud Infrastructure's (OCI) Always Free Tier. The system automates the entire lifecycle of a Shadowsocks server instance, from provisioning and configuration to secure access management and automatic shutdown.
 
-This guide provides a detailed plan for provisioning a compute instance, installing the Shadowsocks server, and automating its lifecycle to stay within the free tier limits.
+### Features
+* **Automated OCI Instance Management:** Automatically creates and manages Always Free eligible compute instances (VM.Standard.E2.1.Micro and VM.Standard.A1.Flex).
+* **Dynamic Network Security:** Automatically updates Network Security Lists to restrict access to your current public IP address, enhancing security.
+* **Local Client Control:** Manages the local Shadowsocks client on macOS, including starting, stopping, and selective routing.
+* **Multi-Device Support:** Generates Shadowsocks URLs and QR codes for easy setup on other devices, such as Android phones.
+* **Usage Tracking:** Monitors and reports on instance usage to help you stay within OCI's Always Free Tier limits.
+* **Command-Line Interface:** Provides a simple and powerful CLI for all management tasks.
 
-***
+### Installation
+1.  **Clone the repository:**
+    ```
+    git clone [https://github.com/your-username/oci-shadowsocks-manager.git](https://github.com/your-username/oci-shadowsocks-manager.git)
+    cd oci-shadowsocks-manager
+    ```
+2.  **Install Python dependencies:**
+    ```
+    pip3 install -r requirements.txt
+    ```
+3.  **Install the Shadowsocks client:**
+    - On macOS, install `shadowsocks-libev` via Homebrew: `brew install shadowsocks-libev`
+4.  **Configure OCI:** Follow the official OCI SDK documentation to set up your API key and configuration file (`~/.oci/config`).
 
-### Phase 1: Automated OCI Setup and Shadowsocks Installation
+### Usage
+The primary way to interact with the system is through the `oci_shadowsocks.py` script.
 
-The goal is to create a script that will provision the OCI compute instance and install all the necessary software automatically.
+* **Start the instance and client:**
+    ```
+    python3 oci_shadowsocks.py start --config config.yaml
+    ```
+* **Stop the instance and client:**
+    ```
+    python3 oci_shadowsocks.py stop --config config.yaml
+    ```
+* **Check the status:**
+    ```
+    python3 oci_shadowsocks.py status --config config.yaml
+    ```
+* **Generate Android QR code:**
+    ```
+    python3 oci_shadowsocks.py export-android --config config.yaml
+    ```
+* **Generate a usage report:**
+    ```
+    python3 oci_shadowsocks.py report --config config.yaml
+    ```
 
-#### 1. Pre-Script Setup
+### Configuration
+The system uses a `config.yaml` file for all settings. A template is provided in the repository.
 
-* **Install OCI CLI**: Install the Oracle Cloud Infrastructure Command Line Interface on your Mac.
-* **Configure Credentials**: Run `oci setup config` in your Terminal to set up your API signing key and provide your User OCID, Tenancy OCID, and region.
-* **IAM Permissions**: Ensure your OCI user has the necessary permissions to create compute instances, key pairs, and security lists.
+### Contributing
+We welcome contributions! Please feel free to open an issue or submit a pull request.
 
-#### 2. The Automation Script
-
-You will create a script that performs the following actions:
-
-* **Create API Key Pair**: The script will generate a new API signing key pair for authentication.
-* **Create Security List**: The script will create a new security list (the OCI equivalent of a security group) and add ingress rules for SSH and your chosen Shadowsocks port.
-* **Launch Compute Instance with User Data**: The script will launch a compute instance. Using the **`--user-data`** flag, it will pass an embedded shell script that runs automatically on first boot. This embedded script will:
-    * Update the system's package list.
-    * Install the Shadowsocks server package.
-    * Configure the Shadowsocks server with a strong password and encryption method.
-    * Enable and start the Shadowsocks service.
-
-***
-
-### Phase 2: Server Automation and Security
-
-This phase addresses the on-demand and security requirements.
-
-1.  **Automated Shutdown with Timeout**: Use **Oracle Cloud Monitoring** to create an alarm based on resource metrics. Configure a rule to automatically stop the instance when it has been idle for a specified period (e.g., 60 minutes) to save free tier hours.
-2.  **Security Best Practices**: Ensure your API key pair is kept private. Use a very strong, randomly generated password for your Shadowsocks server. Only allow SSH access from your own IP address within the security list rules.
+### License
+This project is licensed under the MIT License.
