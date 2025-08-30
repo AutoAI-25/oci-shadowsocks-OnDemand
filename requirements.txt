@@ -1,0 +1,5 @@
+oci[core]
+paramiko
+PyYAML
+requests
+qrcode
